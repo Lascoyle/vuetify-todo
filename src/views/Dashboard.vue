@@ -5,14 +5,25 @@
     <v-container class="my-5">
 
       <v-layout row class="mb-3">
-        <v-btn small text color="grey" @click="sortBy('title')">
-          <v-icon left small>mdi-folder</v-icon>
-          <span class="caption text-lowercase">by project name</span>
-        </v-btn>
-        <v-btn small text color="grey" @click="sortBy('person')">
-          <v-icon left small>mdi-account</v-icon>
-          <span class="caption text-lowercase">by person</span>
-        </v-btn>
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn small text color="grey" @click="sortBy('title')" v-on="on" v-bind="attrs">
+              <v-icon left small>mdi-folder</v-icon>
+              <span class="caption text-lowercase">by project name</span>
+            </v-btn>
+          </template>
+          <span>Sort projects by project name</span>
+        </v-tooltip>
+
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn small text color="grey" @click="sortBy('person')" v-on="on" v-bind="attrs">
+              <v-icon left small>mdi-account</v-icon>
+              <span class="caption text-lowercase">by person</span>
+            </v-btn>
+          </template>
+          <span>Sort projects by person</span>
+        </v-tooltip>
       </v-layout>
 
       <v-card flat color="grey lighten-5" class="pa-3" v-for="(project, index) in projects" :key="index">
@@ -26,8 +37,8 @@
             <v-card-text>{{ project.person }}</v-card-text>
           </v-flex>
           <v-flex xs6 sm4 md2>
-            <v-card-title class="caption grey--text">{{ project.due }}</v-card-title>
-            <v-card-text>15 Jan 2021</v-card-text>
+            <v-card-title class="caption grey--text">Due by</v-card-title>
+            <v-card-text>{{ project.due }}</v-card-text>
           </v-flex>
           <v-flex xs6 sm4 md2>
             <div class="float-right mr-5">
