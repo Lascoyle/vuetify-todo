@@ -72,7 +72,7 @@ export default {
       projects: [
         { title: "Design a website", person: "Lascoyle", due: new Date(2021, 0, 15).toDateString(), status: "ongoing" },
         { title: "Code up homepage", person: "Jane", due: new Date(2020, 11, 25).toDateString(), status: "complete" },
-        { title: "Design video thumbnails", person: "John", due: new Date(2020, 11, 31).toDateString(), status: "complete" },
+        { title: "Design video thumbnails", person: "Jenny", due: new Date(2020, 11, 31).toDateString(), status: "complete" },
         { title: "Create a community forum", person: "Marvin", due: new Date(2020, 10, 13).toDateString(), status: "overdue" },
       ]
     }

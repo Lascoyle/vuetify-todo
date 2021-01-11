@@ -14,6 +14,14 @@
         </v-app-bar>
 
         <v-navigation-drawer app v-model="drawer" class="primary">
+            <v-layout column align-center>
+                <v-flex class="my-5">
+                    <v-avatar size="128" class="mt-5">
+                        <img src="../assets/lascoyle-avatar.jpg" alt="person avatar">
+                    </v-avatar>
+                    <p class="white--text subheading mt-3 text-center">Lascoyle</p>
+                </v-flex>
+            </v-layout>
             <v-list>
                 <v-list-item v-for="(link, index) in links" v-bind:key="index" router v-bind:to="link.route">
                     <v-list-item-action>

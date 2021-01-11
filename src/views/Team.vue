@@ -7,7 +7,9 @@
         <v-flex xs12 sm6 md4 lg3 v-for="(person, index) in team" :key="index">
           <v-card flat color="grey lighten-5" class="text-center ma-3">
             <v-responsive class="pt-4">
-              Image goes here
+              <v-avatar size="100" color="grey lighten-2">
+                <img :src="person.avatar" alt="person avatar icon">
+              </v-avatar>
             </v-responsive>
             <v-card-text>
               <div class="subheading">{{ person.name }}</div>
@@ -35,11 +37,11 @@ export default {
   data() {
     return {
       team: [
-        { name: "Lascoyle", role: "Web Developer"},
-        { name: "Marvin", role: "Social Media Maverick"},
-        { name: "John", role: "Graphic Designer"},
-        { name: "Jane", role: "Web Developer"},
-        { name: "Harry", role: "Sales Guru"}
+        { name: "Lascoyle", role: "Web Developer", avatar: require('../assets/lascoyle-avatar.jpg')},
+        { name: "Marvin", role: "Social Media Maverick", avatar: require('../assets/marvin-avatar.png')},
+        { name: "Jenny", role: "Graphic Designer", avatar: require('../assets/jenny-avatar.png')},
+        { name: "Jane", role: "Web Developer", avatar: require('../assets/jane-avatar.png')},
+        { name: "Harry", role: "Sales Guru", avatar: require('../assets/harry-avatar.png')}
       ]
     }
   }
