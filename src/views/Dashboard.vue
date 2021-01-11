@@ -7,7 +7,7 @@
       <v-layout row class="mb-3">
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn small text color="grey" @click="sortBy('title')" v-on="on" v-bind="attrs">
+            <v-btn small text color="grey" @click="sortByTitle()" v-on="on" v-bind="attrs">
               <v-icon left small>mdi-folder</v-icon>
               <span class="caption text-lowercase">by project name</span>
             </v-btn>
@@ -17,12 +17,22 @@
 
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn small text color="grey" @click="sortBy('person')" v-on="on" v-bind="attrs">
+            <v-btn small text color="grey" @click="sortByPerson()" v-on="on" v-bind="attrs">
               <v-icon left small>mdi-account</v-icon>
               <span class="caption text-lowercase">by person</span>
             </v-btn>
           </template>
           <span>Sort projects by person</span>
+        </v-tooltip>
+
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn small text color="grey" @click="sortByDate()" v-on="on" v-bind="attrs">
+              <v-icon left small>mdi-account</v-icon>
+              <span class="caption text-lowercase">by date due</span>
+            </v-btn>
+          </template>
+          <span>Sort projects by date due</span>
         </v-tooltip>
       </v-layout>
 
@@ -60,16 +70,24 @@ export default {
   data() {
     return {
       projects: [
-        { title: "Design a website", person: "Lascoyle", due: "15th Jan 2021", status: "ongoing" },
-        { title: "Code up homepage", person: "Jane", due: "25th Dec 2020", status: "complete" },
-        { title: "Design video thumbnails", person: "John", due: "31st Dec 2020", status: "complete" },
-        { title: "Create a community forum", person: "Marvin", due: "15th Nov 2020", status: "overdue" },
+        { title: "Design a website", person: "Lascoyle", due: new Date(2021, 0, 15).toDateString(), status: "ongoing" },
+        { title: "Code up homepage", person: "Jane", due: new Date(2020, 11, 25).toDateString(), status: "complete" },
+        { title: "Design video thumbnails", person: "John", due: new Date(2020, 11, 31).toDateString(), status: "complete" },
+        { title: "Create a community forum", person: "Marvin", due: new Date(2020, 10, 13).toDateString(), status: "overdue" },
       ]
     }
   },
   methods: {
-    sortBy(prop) {
-      this.projects.sort((a,b) => a[prop] < b[prop] ? -1 : 1)
+    sortByTitle() {
+      this.projects.sort((a,b) => a.title < b.title ? -1 : 1);
+    },
+
+    sortByPerson() {
+      this.projects.sort((a,b) => a.person < b.person ? -1 : 1);
+    },
+
+    sortByDate() {
+      this.projects.sort((a,b) => Date(a.due) < Date(b.due) ? -1 : 1);
     }
   }
 }
