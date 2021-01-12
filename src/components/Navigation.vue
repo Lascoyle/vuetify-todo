@@ -37,6 +37,9 @@
                     </v-avatar>
                     <p class="white--text subheading mt-3 text-center">Lascoyle</p>
                 </v-flex>
+                <v-flex class="mt-4 mb-4">
+                    <popup></popup>
+                </v-flex>
             </v-layout>
             <v-list>
                 <v-list-item v-for="(link, index) in links" v-bind:key="index" router v-bind:to="link.route">
@@ -53,7 +56,12 @@
 </template>
 
 <script>
+import Popup from './Popup.vue'
+
 export default {
+    components: {
+        'popup': Popup
+    },
     data() {
         return {
             drawer : false,
