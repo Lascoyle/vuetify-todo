@@ -36,7 +36,7 @@
         </v-tooltip>
       </v-layout>
 
-      <v-card flat color="grey lighten-5" class="pa-3" v-for="(project, index) in projects" :key="index">
+      <v-card text color="grey lighten-5" class="pa-3" v-for="(project, index) in projects" :key="index">
         <v-layout row wrap :class="`pa-3 project ${project.status}`">
           <v-flex xs12 md6>
             <v-card-title class="caption grey--text">Project</v-card-title>

@@ -1,6 +1,6 @@
 <template>
     <nav>
-        <v-app-bar flat app color="grey lighten-4" class="px-2">
+        <v-app-bar text app color="grey lighten-4" class="px-2">
             <v-app-bar-nav-icon class="grey--text" @click="drawer = !drawer"></v-app-bar-nav-icon>
             <v-toolbar-title class="text-uppercase grey--text">
                 <span class="font-weight-light">ToDo</span>
@@ -11,7 +11,7 @@
             <!-- Dropdown Menu -->
             <v-menu offset-y>
                 <template v-slot:activator="{ on, attrs}">
-                    <v-btn text flat color="grey" v-bind="attrs" v-on="on">
+                    <v-btn text color="grey" v-bind="attrs" v-on="on">
                         <v-icon left>mdi-chevron-down</v-icon>
                         <span>Menu</span>
                     </v-btn>
