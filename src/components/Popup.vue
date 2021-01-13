@@ -1,5 +1,5 @@
 <template>
-    <v-dialog max-width="600px">
+    <v-dialog max-width="600px" v-model="dialog">
         <template v-slot:activator="{on, attrs}">
             <v-btn text class="success" v-bind="attrs" v-on="on">Add a new project</v-btn>
         </template>
@@ -23,7 +23,7 @@
                         </v-date-picker>
                     </v-menu>
 
-                    <v-btn text class="success mx-0 mt-3" @click="submit">Add project</v-btn>
+                    <v-btn text class="success mx-0 mt-3" @click="submit" :loading="loading">Add project</v-btn>
                 </v-form>
             </v-card-text>
         </v-card>
@@ -43,7 +43,9 @@ export default {
             due: null,
             inputRules: [
                 value => value.length >= 3 || 'Minimum length is 3 characters'
-            ]
+            ],
+            loading: false,
+            dialog: false
         }
     },
     methods: {
@@ -57,9 +59,11 @@ export default {
                     status: 'ongoing'
                 };
 
-                db.collection('projects').add(project).then(() => {
-                    console.log('added to db')
+                db.collection('projects').add(project, this.loading = true).then(() => {
+                    this.loading = false;
+                    this.dialog = false;
                 });
+
             }
         }
     },
