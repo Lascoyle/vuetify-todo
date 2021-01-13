@@ -33,6 +33,7 @@
 <script>
 import format from 'date-fns/format'
 import parseISO from 'date-fns/parseISO'
+import db from '../firebase-conf'
 
 export default {
     data() {
@@ -48,13 +49,23 @@ export default {
     methods: {
         submit() {
             if(this.$refs.form.validate()) {
-                console.log(this.title, this.content)
+                const project = {
+                    title: this.title,
+                    content: this.content,
+                    due: format(parseISO(this.due), 'eee MMM d yyyy'),
+                    person: 'Lascoyle',
+                    status: 'ongoing'
+                };
+
+                db.collection('projects').add(project).then(() => {
+                    console.log('added to db')
+                });
             }
         }
     },
     computed: {
         formatDate() {
-            return this.due ? format(parseISO(this.due), 'eee MMM d yyyy ') : '';
+            return this.due ? format(parseISO(this.due), 'eee MMM d yyyy') : '';
         }
     }
 }
