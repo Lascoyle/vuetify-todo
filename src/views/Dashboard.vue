@@ -34,6 +34,16 @@
           </template>
           <span>Sort projects by date due</span>
         </v-tooltip>
+
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn small text color="grey" @click="sortByStatus()" v-on="on" v-bind="attrs">
+              <v-icon left small>mdi-list-status</v-icon>
+              <span class="caption text-lowercase">by status</span>
+            </v-btn>
+          </template>
+          <span>Sort projects by status</span>
+        </v-tooltip>
       </v-layout>
 
       <v-card text color="grey lighten-5" class="pa-3" v-for="(project, index) in projects" :key="index">
@@ -85,6 +95,10 @@ export default {
 
     sortByDate() {
       this.projects.sort((a,b) => Date(a.due) < Date(b.due) ? -1 : 1);
+    },
+
+    sortByStatus() {
+      this.projects.sort((a,b) => a.status < b.status ? -1 : 1);
     }
   },
   created() {
