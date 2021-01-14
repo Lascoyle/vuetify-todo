@@ -21,19 +21,13 @@
 </template>
 
 <script>
-// @ is an alias to /src
+import db from '../firebase-conf'
 
 export default {
   name: 'Projects',
   data() {
     return {
-      projects: [
-        { title: "Design a website", person: "Lascoyle", due: new Date(2021, 0, 15).toDateString(), status: "ongoing", content: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem odit sed ullam velit recusandae harum praesentium alias dolores eveniet. Facere illum quas blanditiis ipsa, laborum recusandae alias quidem placeat assumenda?" },
-        { title: "Code up homepage", person: "Jane", due: new Date(2020, 11, 25).toDateString(), status: "complete", content: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem odit sed ullam velit recusandae harum praesentium alias dolores eveniet. Facere illum quas blanditiis ipsa, laborum recusandae alias quidem placeat assumenda?" },
-        { title: "Design video thumbnails", person: "Jenny", due: new Date(2020, 11, 31).toDateString(), status: "complete", content: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem odit sed ullam velit recusandae harum praesentium alias dolores eveniet. Facere illum quas blanditiis ipsa, laborum recusandae alias quidem placeat assumenda?" },
-        { title: "Create a community forum", person: "Marvin", due: new Date(2020, 10, 13).toDateString(), status: "overdue", content: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem odit sed ullam velit recusandae harum praesentium alias dolores eveniet. Facere illum quas blanditiis ipsa, laborum recusandae alias quidem placeat assumenda?" },
-        { title: "Design a new Vue.js application", person: "Lascoyle", due: new Date(2021, 2, 2).toDateString(), status: "ongoing", content: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem odit sed ullam velit recusandae harum praesentium alias dolores eveniet. Facere illum quas blanditiis ipsa, laborum recusandae alias quidem placeat assumenda?" },
-      ]
+      projects: []
     }
   },
   computed: {
@@ -42,6 +36,20 @@ export default {
         return project.person === 'Lascoyle'
       })
     }
+  },
+  created() {
+    db.collection('projects').onSnapshot(res => {
+      const changes = res.docChanges();
+
+      changes.forEach(change => {
+        if (change.type === 'added') {
+          this.projects.push({
+            ...change.doc.data(),
+            id: change.doc.id
+          });
+        }
+      })
+    })
   }
 }
 </script>

@@ -65,16 +65,13 @@
 </template>
 
 <script>
+import db from '../firebase-conf'
+
 export default {
   name: 'Dashboard',
   data() {
     return {
-      projects: [
-        { title: "Design a website", person: "Lascoyle", due: new Date(2021, 0, 15).toDateString(), status: "ongoing" },
-        { title: "Code up homepage", person: "Jane", due: new Date(2020, 11, 25).toDateString(), status: "complete" },
-        { title: "Design video thumbnails", person: "Jenny", due: new Date(2020, 11, 31).toDateString(), status: "complete" },
-        { title: "Create a community forum", person: "Marvin", due: new Date(2020, 10, 13).toDateString(), status: "overdue" },
-      ]
+      projects: []
     }
   },
   methods: {
@@ -89,6 +86,20 @@ export default {
     sortByDate() {
       this.projects.sort((a,b) => Date(a.due) < Date(b.due) ? -1 : 1);
     }
+  },
+  created() {
+    db.collection('projects').onSnapshot(res => {
+      const changes = res.docChanges();
+
+      changes.forEach(change => {
+        if (change.type === 'added') {
+          this.projects.push({
+            ...change.doc.data(),
+            id: change.doc.id
+          });
+        }
+      })
+    })
   }
 }
 </script>
